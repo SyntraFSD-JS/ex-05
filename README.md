@@ -1,4 +1,5 @@
-# Oefening 05 - TEST
+# Oefening 05
+
 ## Voorbereiding:
 Clone de git-repository uit github en maak je eigen branch.
 1. Kopieer de url via github naar je klembord:  
