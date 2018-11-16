@@ -20,6 +20,8 @@ function slide(ssSlide, bullets, width, index) {
       bullet.classList.remove("active");
     }
   }
+
+
   
 }
 
@@ -147,9 +149,9 @@ function init(element) {
   const ssSlide = element.appendChild(makeSsSlide(element, images, containerWidth));
   
 
-  bullets.addEventListener('click', function(){
-    if (event.target.matches("ss-bullet")){
-      slide(ssSlide,bullets,width,parseInt(event.target.dataset.index))
+  bullets.addEventListener('click', function(event){
+    if (event.target.matches(".ss-bullet")){
+      slide(ssSlide,bullets,containerWidth,parseInt(event.target.dataset.index));
     }
   })
 
