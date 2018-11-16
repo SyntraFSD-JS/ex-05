@@ -1,5 +1,3 @@
-const newSlider = document.querySelector('.super-slider');
-
 /**
  * @param ssSlide {Element}
  * @param bullets {Element}
@@ -20,6 +18,13 @@ function slide(ssSlide, bullets, width, index) {
  */
 function resizeImg(imgElement, newWidth) {
   // set imgElement.syle.width and -height
+  // set imgElement.width
+  // set imgElement.height
+  const originalWidth = imgElement.clientWidth;
+  const originalHeight = imgElement.clientHeight;
+  imgElement.style.width = newWidth + 'px';
+  imgElement.style.height = (newWidth * originalHeight / originalWidth) + 'px';
+
 }
 
 /**
@@ -27,9 +32,18 @@ function resizeImg(imgElement, newWidth) {
  * @param containerWidth {number}
  * @returns {NodeListOf<Element>}
  */
-function resizeImages(element, containerWidth) {
+function resizeImages(element, containerWidth2) {
   // resizeImg for all images
   // return images
+  // loop > all images
+  const images = element.querySelectorAll("img");
+
+  for (let i = 0; i < images.length; i++) {
+    resizeImg(images[i], containerWidth2);
+  }
+    // ....
+
+  return images;
 }
 
 /**
@@ -42,6 +56,20 @@ function makeSsSlide(element, images) {
   // add classes and index
   // append all images
   // return ssSlide
+
+  // const ssSlide = document.createElement('div');
+  // add class add data-index
+  // loop images > appendChild
+
+  const ssSlide = document.createElement('div');
+  ssSlide.classList.add('ss-slide');
+  ssSlide.dataset.index = "0";
+
+  for (let i=0; i < images.length; i++) {
+    ssSlide.appendChild(images[i]);
+  }
+
+  return ssSlide;
 }
 
 /**
@@ -53,6 +81,10 @@ function makeArrow(leftRight) {
   // add classes and font-awesome icon
   // see html
   // return the arrow
+
+  // const arrow = document.createElement('div');
+
+  return arrow;
 }
 
 /**
@@ -64,6 +96,10 @@ function makeBullets(count) {
   // fill with count * .ss-bullet
   // see html
   // return bullets
+
+  //
+
+  return bullets;
 }
 
 /**
@@ -74,6 +110,16 @@ function init(element) {
   // resize images
   // append ssSlide, left and right arrow and bullets
   // add event listeners
+ // element //remove class
+  element.classList.remove('loading');
+  const containerWidth1 = element.clientWidth;
+  const images = resizeImages(element, containerWidth1);
+  const ssSlide = element.appendChild(makeSsSlide(element, images));
+  //
+
+  leftArrow.addEventListener('click', function(event){
+
+  });
 }
 
 /**
@@ -111,7 +157,12 @@ function superSlider(element) {
   });
 }
 
+const newSlider = document.querySelector('.super-slider');
 
-document.addEventListener('DOMContentLoaded', function () {
-  superSlider(newSlider);
-});
+superSlider(newSlider);
+
+
+
+
+
+
