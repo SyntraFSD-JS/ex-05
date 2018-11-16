@@ -12,8 +12,20 @@ function slide(ssSlide, bullets, width, index) {
   // change left of ssSlide
   // set active class on correct .ss-bullet
   // style left aanpassen -(index*width)
-  
   if(index>=0 && index<bullets.children.length){
+
+    //let arrows=document.querySelectorAll('ss-arrow');
+    //console.log(arrows);
+    /*if(index===0){
+      arrows[0].style.display='none';
+      arrows[1].style.display='block';
+    }else if(index===bullets.children.length-1){
+      arrows[1].style.display='none';
+      arrows[0].style.display='block';
+    }else{
+      arrows[0].style.display='block';
+      arrows[1].style.display='block';
+    }*/
     
     for(let i =0;i<bullets.children.length;i++){
 
@@ -158,11 +170,25 @@ function init(element) {
   const bullets= element.appendChild(makeBullets(images.length));
   const ssSlide= element.appendChild(makeSsSlide(element,images));
 
+  document.addEventListener("keydown", event=>{
+
+    if(event.keyCode==39){
+
+      slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)+1);
+
+    }else if(event.keyCode==37){
+
+      slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)-1);
+    }
+  });
+
   leftArrow.addEventListener('click',event=>{
+
     slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)-1);
   });
 
   rightArrow.addEventListener('click',event=>{
+
     slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)+1);
   });
 
