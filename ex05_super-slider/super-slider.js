@@ -12,6 +12,7 @@ function slide(ssSlide, bullets, width, index) {
   // change left of ssSlide
   // set active class on correct .ss-bullet
   // style left aanpassen -(index*width)
+  
   if(index>=0 && index<bullets.children.length){
     
     for(let i =0;i<bullets.children.length;i++){
