@@ -1,5 +1,3 @@
-const newSlider = document.querySelector('.super-slider');
-
 /**
  * @param ssSlide {Element}
  * @param bullets {Element}
@@ -21,7 +19,7 @@ function slide(ssSlide, bullets, width, index) {
 function resizeImg(imgElement, newWidth) {
   // set imgElement.syle.width and -height
   // set imgElement.width
-  //set imgElement.height
+  // set imgElement.height
 }
 
 /**
@@ -32,6 +30,12 @@ function resizeImg(imgElement, newWidth) {
 function resizeImages(element, containerWidth) {
   // resizeImg for all images
   // return images
+  // loop > all images
+  const images = element.querySelectorAll()
+
+    // ....
+
+  return images;
 }
 
 /**
@@ -45,7 +49,11 @@ function makeSsSlide(element, images) {
   // append all images
   // return ssSlide
 
-  //document.createElement('div')
+  // const ssSlide = document.createElement('div');
+  // add class add data-index
+  // loop images > appendChild
+
+  return ssSlide;
 }
 
 /**
@@ -57,6 +65,10 @@ function makeArrow(leftRight) {
   // add classes and font-awesome icon
   // see html
   // return the arrow
+
+  // const arrow = document.createElement('div');
+
+  return arrow;
 }
 
 /**
@@ -68,6 +80,10 @@ function makeBullets(count) {
   // fill with count * .ss-bullet
   // see html
   // return bullets
+
+  //
+
+  return bullets;
 }
 
 /**
@@ -78,12 +94,15 @@ function init(element) {
   // resize images
   // append ssSlide, left and right arrow and bullets
   // add event listeners
-  element // remove class
+  element //remove class
   const containerWidth = element.clientWidth;
-  const imgaes = resizeImages(element, containerWidth);
+  const images = resizeImages(element, containerWidth);
   const ssSlide = element.appendChild(makeSsSlide(element, images));
+  //
 
-  
+  leftArrow.addEventListener('click', function(event){
+
+  });
 }
 
 /**
@@ -121,7 +140,12 @@ function superSlider(element) {
   });
 }
 
+const newSlider = document.querySelector('.super-slider');
 
-document.addEventListener('DOMContentLoaded', function () {
-  superSlider(newSlider);
-});
+superSlider(newSlider);
+
+
+
+
+
+
