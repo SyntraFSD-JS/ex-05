@@ -9,6 +9,7 @@ function slide(ssSlide, bullets, width, index) {
   // change index of ssSlide
   // change left of ssSlide
   // set active class on correct .ss-bullet
+  
 }
 
 /**
@@ -20,7 +21,7 @@ function resizeImg(imgElement, newWidth) {
   // set imgElement.syle.width and -height
   // set imgElement.width
   // set imgElement.height
-  const originalWidth = imgElement.clientwidth;
+  const originalWidth = imgElement.clientWidth;
   const originalHeight = imgElement.clientHeight;
   imgElement.style.width = newWidth + 'px';
   imgElement.style.height = (newWidth * originalHeight / originalWidth) + 'px';
@@ -32,14 +33,14 @@ function resizeImg(imgElement, newWidth) {
  * @param containerWidth {number}
  * @returns {NodeListOf<Element>}
  */
-function resizeImages(element, containerWidth) {
+function resizeImages(element, containerWidth2) {
   // resizeImg for all images
   // return images
   // loop > all images
   const images = element.querySelectorAll('img');
 
   for (let i = 0; i < images.length; i++) {
-    resizeImg(images[i], containerWidth);
+    resizeImg(images[i], containerWidth2);
   }
 
     // ....
@@ -52,7 +53,7 @@ function resizeImages(element, containerWidth) {
  * @param images {NodeListOf<Element>}
  * @returns {Element}
  */
-function makeSsSlide(element, images) {
+function makeSsSlide(element, images, containerWidth2) {
   // create ssSlide (see html document for correct structure)
   // add classes and index
   // append all images
@@ -61,6 +62,7 @@ function makeSsSlide(element, images) {
 
   ssSlide.classList.add('ss-slide');
   ssSlide.dataset.index = '0';
+  ssSlide.style.width = images.length * containerWidth2;
   for (let i = 0; i < images.length; i++) {
     ssSlide.appendChild(images[i]);
   }
@@ -81,8 +83,13 @@ function makeArrow(leftRight) {
   // add classes and font-awesome icon
   // see html
   // return the arrow
+  const arrow = document.createElement('div');
+  arrow.classList.add("ss-arrow", "ss-" + leftRight);
 
-  // const arrow = document.createElement('div');
+  const fontAwesome = document.createElement('i');
+  fontAwesome.classList.add("fas", "fa-angle-" +leftRight ,"fa-5x");
+  arrow.appendChild(fontAwesome); 
+  
 
   return arrow;
 }
@@ -96,10 +103,19 @@ function makeBullets(count) {
   // fill with count * .ss-bullet
   // see html
   // return bullets
+const bulletContainer = document.createElement('div');
+bulletContainer.classList.add("ss-bullets");
 
-  //
-
-  return bullets;
+  for(let i = 0; i < count; i++){
+    const bullet = document.createElement('div');
+    if(i == 0){
+      bullet.classList.add("active");
+    }
+    bullet.classList.add("ss-bullet");
+    bullet.dataset.index = i;
+    bulletContainer.appendChild(bullet);
+  }
+  return bulletContainer;
 }
 
 /**
@@ -112,10 +128,12 @@ function init(element) {
   // add event listeners
   //element //remove class
   element.classList.remove('loading');
-  const containerWidth = element.clientWidth;
-  const images = resizeImages(element, containerWidth);
-  const ssSlide = element.appendChild(makeSsSlide(element, images));
-  //
+  const containerWidth1 = element.clientWidth;
+  const images = resizeImages(element, containerWidth1);
+  element.appendChild(makeArrow("left"));
+  element.appendChild(makeArrow("right"));
+  const bullet = element.appendChild(makeBullets(images.length));
+  const ssSlide = element.appendChild(makeSsSlide(element, images, containerWidth2));
 
   leftArrow.addEventListener('click', function(event){
 
