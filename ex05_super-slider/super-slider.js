@@ -20,6 +20,11 @@ function resizeImg(imgElement, newWidth) {
   // set imgElement.syle.width and -height
   // set imgElement.width
   // set imgElement.height
+  const originalWidth = imgElement.clientwidth;
+  const originalHeight = imgElement.clientHeight;
+  imgElement.style.width = newWidth + 'px';
+  imgElement.style.height = (newWidth * originalHeight / originalWidth) + 'px';
+
 }
 
 /**
@@ -31,7 +36,11 @@ function resizeImages(element, containerWidth) {
   // resizeImg for all images
   // return images
   // loop > all images
-  const images = element.querySelectorAll()
+  const images = element.querySelectorAll('img');
+
+  for (let i = 0; i < images.length; i++) {
+    resizeImg(images[i], containerWidth);
+  }
 
     // ....
 
@@ -48,6 +57,13 @@ function makeSsSlide(element, images) {
   // add classes and index
   // append all images
   // return ssSlide
+  const ssSlide = document.createElement('div');
+
+  ssSlide.classList.add('ss-slide');
+  ssSlide.dataset.index = '0';
+  for (let i = 0; i < images.length; i++) {
+    ssSlide.appendChild(images[i]);
+  }
 
   // const ssSlide = document.createElement('div');
   // add class add data-index
@@ -94,7 +110,8 @@ function init(element) {
   // resize images
   // append ssSlide, left and right arrow and bullets
   // add event listeners
-  element //remove class
+  //element //remove class
+  element.classList.remove('loading');
   const containerWidth = element.clientWidth;
   const images = resizeImages(element, containerWidth);
   const ssSlide = element.appendChild(makeSsSlide(element, images));
@@ -143,9 +160,3 @@ function superSlider(element) {
 const newSlider = document.querySelector('.super-slider');
 
 superSlider(newSlider);
-
-
-
-
-
-
