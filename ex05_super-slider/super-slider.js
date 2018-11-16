@@ -11,6 +11,21 @@ function slide(ssSlide, bullets, width, index) {
   // change index of ssSlide
   // change left of ssSlide
   // set active class on correct .ss-bullet
+  // style left aanpassen -(index*width)
+  if(index>=0 && index<5){
+    
+    for(let i =0;i<bullets.children.length;i++){
+      if(parseInt(bullets.children[i].dataset.index)===index){
+        bullets.children[i].classList.add('active');
+      }else{
+        bullets.children[i].classList.remove('active');
+      }
+    }
+
+    ssSlide.dataset.index=index;
+    ssSlide.style.left=-(index*width) +"px";
+
+  }
 }
 
 /**
@@ -20,6 +35,13 @@ function slide(ssSlide, bullets, width, index) {
  */
 function resizeImg(imgElement, newWidth) {
   // set imgElement.syle.width and -height
+  // set imgElement.width
+  // set imgElement.heigth  
+  const originalWidth=imgElement.width;
+  const originalHeight=imgElement.height;
+  
+  imgElement.style.width=newWidth +'px';
+  imgElement.style.height =(newWidth*originalHeight/originalWidth) +'px';
 }
 
 /**
@@ -30,6 +52,12 @@ function resizeImg(imgElement, newWidth) {
 function resizeImages(element, containerWidth) {
   // resizeImg for all images
   // return images
+  // loop > all images
+  const images = element.querySelectorAll('img');
+    images.forEach(value=>{
+      resizeImg(value,containerWidth);
+    });
+  return images;
 }
 
 /**
@@ -42,6 +70,21 @@ function makeSsSlide(element, images) {
   // add classes and index
   // append all images
   // return ssSlide
+  
+  const imagesdiv = document.createElement('div');
+  imagesdiv.classList.add('ss-slide');
+  imagesdiv.dataset.index = 0;
+  
+  images.forEach(value=>{
+    imagesdiv.appendChild(value);
+  });
+
+  let lengteImages = element.clientWidth * images.length
+  imagesdiv.style.width = lengteImages+"px";
+  return imagesdiv;
+
+  //document.createElement('div');
+  // ad class
 }
 
 /**
@@ -52,7 +95,17 @@ function makeArrow(leftRight) {
   // make new arrow (left or right)
   // add classes and font-awesome icon
   // see html
-  // return the arrow
+  // return the arrow dociument.createElement('div')
+
+  // <!--<div class="ss-arrow ss-left"><i class="fas fa-angle-left fa-5x"></i></div>-->
+  const Arrow = document.createElement("div");
+  Arrow.classList.add('ss-arrow',"ss-"+leftRight);
+  const liArrow = document.createElement("i");
+  liArrow.classList.add('fas',"fa-angle-"+leftRight,'fa-5x');
+  Arrow.appendChild(liArrow);
+
+  return Arrow;
+
 }
 
 /**
@@ -64,6 +117,23 @@ function makeBullets(count) {
   // fill with count * .ss-bullet
   // see html
   // return bullets
+
+  //<!--<div class="ss-bullets">-->
+  //<!--<div class="ss-bullet active" data-index="0"></div>-->
+  const bullets=document.createElement('div');
+  bullets.classList.add('ss-bullets');
+
+  for(let i =0;i<count;i++){
+    const bullet = document.createElement('div');
+    if(i===0){
+    bullet.classList.add('ss-bullet','active');
+    }else{
+    bullet.classList.add('ss-bullet');
+    }
+    bullet.dataset.index=i;
+    bullets.appendChild(bullet);
+  }
+  return bullets;
 }
 
 /**
@@ -74,6 +144,33 @@ function init(element) {
   // resize images
   // append ssSlide, left and right arrow and bullets
   // add event listeners
+  element.classList.remove('loading');
+  const containerWidth = element.clientWidth;
+
+  const images=resizeImages(element,containerWidth);
+
+  const leftArrow=element.appendChild(makeArrow('left'));
+  const rightArrow=element.appendChild(makeArrow('right'));
+  const bullets= element.appendChild(makeBullets(images.length));
+  const ssSlide= element.appendChild(makeSsSlide(element,images));
+
+  leftArrow.addEventListener('click',event=>{
+    slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)-1);
+  });
+
+  rightArrow.addEventListener('click',event=>{
+    slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)+1);
+  });
+
+  bullets.addEventListener('click',event=>{
+    if(event.target.matches('.ss-bullet')){
+      slide(ssSlide, bullets, containerWidth, parseInt(event.target.dataset.index));
+    }
+  });
+
+
+
+
 }
 
 /**
