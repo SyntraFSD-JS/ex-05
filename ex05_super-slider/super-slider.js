@@ -31,7 +31,7 @@ function resizeImages(element, containerWidth) {
   // resizeImg for all images
   // return images
   // loop > all images
-  const images = element.querySelectorAll()
+  const images = element.querySelectorAll('img');
 
     // ....
 
