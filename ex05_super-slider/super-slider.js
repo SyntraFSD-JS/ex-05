@@ -21,13 +21,6 @@ function slide(ssSlide, bullets, width, index) {
       bullet.classList.remove("active");
     }
   }
-
-  if (!bullets.childNodes.dataset.index == index) {
-    bullets.childNodes.classList.remove("active");
-  }
-  else {
-    bullet.childNodes.classList.add("active");
-  }
 }
 
 /**
@@ -177,8 +170,8 @@ function init(element) {
   })
 
   bullets.addEventListener('click', function changeBullet(){
-    if (event.target.matches('ss-bullet')) {
-      slide(ssSlide, bullets, width, event.target.dataset.index)
+    if (event.target.matches('.ss-bullet')) {
+      slide(ssSlide, bullets, containerWidth, parseInt(event.target.dataset.index));
     }
   })
 
