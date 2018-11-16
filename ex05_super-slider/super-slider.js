@@ -20,6 +20,8 @@ function slide(ssSlide, bullets, width, index) {
  */
 function resizeImg(imgElement, newWidth) {
   // set imgElement.syle.width and -height
+  // set imgElement.width
+  //set imgElement.height
 }
 
 /**
@@ -42,6 +44,8 @@ function makeSsSlide(element, images) {
   // add classes and index
   // append all images
   // return ssSlide
+
+  //document.createElement('div')
 }
 
 /**
@@ -74,6 +78,12 @@ function init(element) {
   // resize images
   // append ssSlide, left and right arrow and bullets
   // add event listeners
+  element // remove class
+  const containerWidth = element.clientWidth;
+  const imgaes = resizeImages(element, containerWidth);
+  const ssSlide = element.appendChild(makeSsSlide(element, images));
+
+  
 }
 
 /**
