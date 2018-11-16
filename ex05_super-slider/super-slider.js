@@ -31,6 +31,10 @@ function resizeImages(element, containerWidth) {
   // resizeImg for all images
   // return images
 }
+    const images = document.querySelectorAll(){
+}
+    return images;
+}
 
 /**
  * @param element {Element}
@@ -42,6 +46,7 @@ function makeSsSlide(element, images) {
   // add classes and index
   // append all images
   // return ssSlide
+    // const ss slide... appendChild...
 }
 
 /**
@@ -53,6 +58,8 @@ function makeArrow(leftRight) {
   // add classes and font-awesome icon
   // see html
   // return the arrow
+
+    // const arrow (div)... return arrow
 }
 
 /**
@@ -65,7 +72,11 @@ function makeBullets(count) {
   // see html
   // return bullets
 }
+domument.createElement(
 
+)
+// en eindigen met
+return bullets
 /**
  * @param element {Element}
  */
@@ -74,6 +85,14 @@ function init(element) {
   // resize images
   // append ssSlide, left and right arrow and bullets
   // add event listeners
+    element //removeclass
+    const containerWidth = element.clientWidth;
+    cont images = resizeImages(element, containerWidth)
+    const ssSlide = element.appendChild(makeSsSlide(element, images));
+    ...
+    leftArrow.addEventListener('click', function(event){
+
+    })
 }
 
 /**
@@ -109,7 +128,9 @@ function superSlider(element) {
       });
     }
   });
-}
+} /* die 'else' moet erbij omdat als de images nog niet geladen zijn
+(zoals bijna altijd) de if statement false zal zijn en de images dus niet zullen geladen worden
+en dus de functie ook niet) WANT de functie wordt pas geladen wnr de html is geladen (addeventlistener documentloaded)*/
 
 
 document.addEventListener('DOMContentLoaded', function () {
