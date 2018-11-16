@@ -145,9 +145,9 @@ function init(element) {
   // append ssSlide, left and right arrow and bullets
   // add event listeners
   element.classList.remove('loading');
-  const containerWidth = element.clientWidth;
+  let containerWidth = element.clientWidth;
 
-  const images=resizeImages(element,containerWidth);
+  let images=resizeImages(element,containerWidth);
 
   const leftArrow=element.appendChild(makeArrow('left'));
   const rightArrow=element.appendChild(makeArrow('right'));
@@ -167,6 +167,11 @@ function init(element) {
       slide(ssSlide, bullets, containerWidth, parseInt(event.target.dataset.index));
     }
   });
+
+  document.getElementsByTagName("BODY")[0].onresize = event=>{
+    containerWidth = element.clientWidth;
+    images=resizeImages(element,containerWidth);
+  }
 
 
 
