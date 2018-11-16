@@ -24,7 +24,7 @@ function resizeImg(imgElement, newWidth) {
   const originalWidth = imgElement.clientWidth;
   const originalHeight = imgElement.clientHeight;
   imgElement.style.width = newWidth + 'px';
-  img.Element.style.height = (newWidth * originalHeight / originalWidth) +'px'
+  img.Element.style.height = (newWidth * originalHeight / originalWidth) + 'px'
 }
 
 /**
