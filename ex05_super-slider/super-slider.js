@@ -51,7 +51,7 @@ function resizeImages(element, containerWidth2) {
  * @param images {NodeListOf<Element>}
  * @returns {Element}
  */
-function makeSsSlide(element, images) {
+function makeSsSlide(element, images, containerWidth2) {
   // create ssSlide (see html document for correct structure)
   // add classes and index
   // append all images
@@ -64,6 +64,7 @@ function makeSsSlide(element, images) {
   const ssSlide = document.createElement('div');
   ssSlide.classList.add('ss-slide');
   ssSlide.dataset.index = "0";
+  ssSlide.style.width = images.length * containerWidth2 //aantal images * breedte container
 
   for (let i=0; i < images.length; i++) {
     ssSlide.appendChild(images[i]);
@@ -84,6 +85,16 @@ function makeArrow(leftRight) {
 
   // const arrow = document.createElement('div');
 
+  const arrow = document.createElement('div');
+  arrow.classList.add("ss-arrow", "ss-" + leftRight);
+
+  const fontAwesome = document.createElement('i');
+  fontAwesome.classList.add("fas", "fa-5x", "fa-angle-" + leftRight);
+
+  arrow.appendChild(fontAwesome);
+  
+
+
   return arrow;
 }
 
@@ -96,10 +107,22 @@ function makeBullets(count) {
   // fill with count * .ss-bullet
   // see html
   // return bullets
+  const bulletContainer = document.createElement('div');
+  bulletContainer.classList.add("ss-bullets");
 
-  //
+  for (let i = 0; i < count; i++) {
+    const bullet = document.createElement('div');
+    if (i==0) {
+      bullet.classList.add("active");
+    }
+    bullet.classList.add("ss-bullet");
+    bullet.dataset.index = i;
+    bulletContainer.appendChild(bullet);
+  }
 
-  return bullets;
+  
+
+  return bulletContainer;
 }
 
 /**
@@ -114,7 +137,10 @@ function init(element) {
   element.classList.remove('loading');
   const containerWidth1 = element.clientWidth;
   const images = resizeImages(element, containerWidth1);
-  const ssSlide = element.appendChild(makeSsSlide(element, images));
+  element.appendChild(makeArrow("left"));
+  element.appendChild(makeArrow("right"));
+  const bullet = element.appendChild(makeBullets(images.length));
+  const ssSlide = element.appendChild(makeSsSlide(element, images, containerWidth2));
   //
 
   leftArrow.addEventListener('click', function(event){
