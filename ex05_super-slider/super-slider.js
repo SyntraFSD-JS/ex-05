@@ -11,6 +11,17 @@ function slide(ssSlide, bullets, width, index) {
   // change index of ssSlide
   // change left of ssSlide
   // set active class on correct .ss-bullet
+  ssSlide.style.left = -(width * index) + 'px';
+  ssSlide.dataset.index = index;
+  for(let i =0; i < bullets.children.length; i++) {
+    const bullet = bullets.children[i];
+    if (parseInt(bullet.dataset.index) === index){
+      bullet.classList.add('active');
+    } else {
+      bullet.classList.remove('active');
+    }
+  }
+
 }
 
 /**
@@ -20,6 +31,13 @@ function slide(ssSlide, bullets, width, index) {
  */
 function resizeImg(imgElement, newWidth) {
   // set imgElement.syle.width and -height
+  // set imgElement.width and height
+  const originalWidth = imgElement.clientWidth;
+  const originalHeight = imgElement.clientHeight
+  const outerHeight = (newWidth * originalHeight / originalWidth) + 'px';
+  imgElement.style.width = newWidth + 'px';
+  imgElement.style.height = outerHeight;
+
 }
 
 /**
@@ -30,6 +48,13 @@ function resizeImg(imgElement, newWidth) {
 function resizeImages(element, containerWidth) {
   // resizeImg for all images
   // return images
+  // loop all images
+  const images = element.querySelectorAll ('img');
+  for (let i = 0; i < images.length; i++){
+    resizeImg(images[i], containerWidth);
+  }
+
+  return images;
 }
 
 /**
@@ -42,6 +67,21 @@ function makeSsSlide(element, images) {
   // add classes and index
   // append all images
   // return ssSlide
+
+  // document.creatElement('div');
+  // add class add data index
+
+  const ssSlide = document.createElement('div');
+  ssSlide.classList.add('ss-slide');
+  ssSlide.dataset.index ='0';
+  ssSlide.style.width = (element.clientWidth * images.length) + 'px';
+  for(let i = 0; i < images.length; i++) {
+    const image = images[i];
+    ssSlide.appendChild(image);
+  }
+  ssSlide.style.width = element.clientHeightWidth
+
+  return ssSlide;
 }
 
 /**
@@ -53,6 +93,12 @@ function makeArrow(leftRight) {
   // add classes and font-awesome icon
   // see html
   // return the arrow
+
+  // const arrow = document
+    const arrow = document.createElement('div');
+    arrow.classList.add('ss-arrow', 'ss-' + leftRight);
+    arrow.innerHTML ='<i class="fas fa-angle-' + leftRight + ' fa-5x"></i>';
+  return arrow;
 }
 
 /**
@@ -64,6 +110,20 @@ function makeBullets(count) {
   // fill with count * .ss-bullet
   // see html
   // return bullets
+  const bulltContainer = document.createElement('div');
+  bulltContainer.classList.add('ss-bullets');
+  for (let i = 0; i< count; i++){
+    const bullet = document.createElement('div');
+    if (i===0) {
+      bullet.classList.add('active');
+    }
+    bullet.classList.add('ss-bullet');
+    bullet.dataset.index = i;
+  bulltContainer.appendChild(bullet);
+
+  }
+  
+  return bulltContainer;
 }
 
 /**
@@ -74,6 +134,36 @@ function init(element) {
   // resize images
   // append ssSlide, left and right arrow and bullets
   // add event listeners
+  element.classList.remove('loading');
+  const containerWidth = element.clientWidth;
+  const images  = resizeImages(element, containerWidth);
+  const ssSlide = element.appendChild(makeSsSlide(element, images));
+  const leftArrow = element.appendChild(makeArrow('left'));
+  const rightArrow = element.appendChild(makeArrow('right'));
+  const bullets = element.appendChild(makeBullets(images.length))
+  //const ssSlide = element appenchChiled(makeSssSlide(element, images));
+  leftArrow.addEventListener('click' , function () {
+    if (parseInt(ssSlide.dataset.index) > 0) {
+
+    const newIndex = parseInt(ssSlide.dataset.index) - 1;
+      console.log(ssSlide.dataset.index);
+      slide(ssSlide, bullets, containerWidth, newIndex);
+
+  }
+});
+rightArrow.addEventListener('click' , function() {
+  if (parseInt(ssSlide.dataset.index) < images.length - 1) {
+    const newIndex = parseInt(ssSlide.dataset.index) + 1;
+    slide(ssSlide, bullets, containerWidth, newIndex);
+  }
+});
+bullets.addEventListener('click', function(event) {
+  console.log(event.target);
+  if (event.target.matches('.ss-bullet')) {
+    slide(ssSlide, bullets, containerWidth, parseInt(event.target.dataset.index));
+  }
+
+});
 }
 
 /**
