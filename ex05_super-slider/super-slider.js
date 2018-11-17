@@ -6,26 +6,25 @@ const newSlider = document.querySelector('.super-slider');
  * @param width {number}
  * @param index {number}
  */
-function slide(ssSlide, bullets, width, index) {
+function slide(ssSlide, bullets, width, index, Arrow) {
   // make the image slide:
   // change index of ssSlide
   // change left of ssSlide
   // set active class on correct .ss-bullet
   // style left aanpassen -(index*width)
-  if(index>=0 && index<bullets.children.length){
-
-    //let arrows=document.querySelectorAll('ss-arrow');
-    //console.log(arrows);
-    /*if(index===0){
-      arrows[0].style.display='none';
-      arrows[1].style.display='block';
-    }else if(index===bullets.children.length-1){
-      arrows[1].style.display='none';
-      arrows[0].style.display='block';
+  
+   if(parseInt(index)<=0){
+      Arrow['leftArrow'].style.display='none';
+      Arrow['rightArrow'].style.display='block';
+    }else if(parseInt(index)>=bullets.children.length-1){
+      Arrow['rightArrow'].style.display='none';
+      Arrow['leftArrow'].style.display='block';
     }else{
-      arrows[0].style.display='block';
-      arrows[1].style.display='block';
-    }*/
+      Arrow['leftArrow'].style.display='block';
+      Arrow['rightArrow'].style.display='block';
+    }
+
+  if(index>=0 && index<bullets.children.length){
     
     for(let i =0;i<bullets.children.length;i++){
 
@@ -167,34 +166,39 @@ function init(element) {
 
   const leftArrow=element.appendChild(makeArrow('left'));
   const rightArrow=element.appendChild(makeArrow('right'));
+  const Arrow={leftArrow:leftArrow,rightArrow:rightArrow};
   const bullets= element.appendChild(makeBullets(images.length));
   const ssSlide= element.appendChild(makeSsSlide(element,images));
+
+  if(parseInt(ssSlide.dataset.index)===0){
+    Arrow['leftArrow'].style.display='none';
+  }
 
   document.addEventListener("keydown", event=>{
 
     if(event.keyCode==39){
 
-      slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)+1);
+      slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)+1,Arrow);
 
     }else if(event.keyCode==37){
 
-      slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)-1);
+      slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)-1,Arrow);
     }
   });
 
   leftArrow.addEventListener('click',event=>{
 
-    slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)-1);
+    slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)-1,Arrow);
   });
 
   rightArrow.addEventListener('click',event=>{
 
-    slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)+1);
+    slide(ssSlide, bullets, containerWidth, parseInt(ssSlide.dataset.index)+1,Arrow);
   });
 
   bullets.addEventListener('click',event=>{
     if(event.target.matches('.ss-bullet')){
-      slide(ssSlide, bullets, containerWidth, parseInt(event.target.dataset.index));
+      slide(ssSlide, bullets, containerWidth, parseInt(event.target.dataset.index),Arrow);
     }
   });
 
