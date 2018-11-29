@@ -41,7 +41,7 @@ imgElement.style.height = (newWidth * originalHeight / originalWidth) + 'px';
 }
 
 /**
- * @param element {Element}
+ * @param element {HTMLElement}
  * @param containerWidth {number}
  * @returns {NodeListOf<Element>}
  */
