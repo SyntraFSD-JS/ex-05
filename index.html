@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Exercise 01 - Word scrambler</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
 
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
@@ -27,7 +28,7 @@
       <li data-gh="Arno">Arno De Leeuw -
         <a target="_blank" href="" class="button is-link is-small">view</a>
       </li>
-      <li data-gh="danny">Danny Eeraerts -
+      <li data-gh="Danny">Danny Eeraerts -
         <a target="_blank" href="" class="button is-link is-small">view</a>
       </li>
       <li data-gh="">Harold Van Isacker -
@@ -54,7 +55,7 @@
       <li data-gh="QntnRoos">Quinten Roos -
         <a target="_blank" href="" class="button is-link is-small">view</a>
       </li>
-      <li data-gh="">Ricky Wuestenberg -
+      <li data-gh="Ricky">Ricky Wuestenberg -
         <a target="_blank" href="" class="button is-link is-small">view</a>
       </li>
       <li data-gh="">Siebe Alaerts -
@@ -66,7 +67,7 @@
       <li data-gh="Thibault">Thibault Zenner -
         <a target="_blank" href="" class="button is-link is-small">view</a>
       </li>
-      <li data-gh="">Vladimira Vladimirova -
+      <li data-gh="vlad">Vladimira Vladimirova -
         <a target="_blank" href="" class="button is-link is-small">view</a>
       </li>
       <li data-gh="Ward">Ward Heyvaerts -
@@ -76,15 +77,16 @@
   </div>
 </section>
 <script>
-  const repoName = 'ex-02';
-  const folder = 'ex02_word-scrambler';
+  const repoName = 'ex-05';
+  const folder = 'ex05_super-slider';
   const list = document.querySelectorAll('li');
 
   list.forEach((listItem) => {
     const branchName = listItem.getAttribute('data-gh');
     const viewUrl = listItem.querySelector('a:nth-child(1)');
     if (branchName) {
-      viewUrl.href = `http://htmlpreview.github.io/?https://github.com/SyntraFSD-JS/${repoName}/blob/${branchName}/${folder}/index.html`;
+      const solutionFolder = branchName === 'master' ? '/solution' : '';
+      viewUrl.href = `http://htmlpreview.github.io/?https://github.com/SyntraFSD-JS/${repoName}/blob/${branchName}/${folder}${solutionFolder}/index.html`;
     } else {
       viewUrl.setAttribute("disabled", "disabled");
     }

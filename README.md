@@ -44,7 +44,42 @@ In deze module gebruiken we allemaal chrome zodat we allemaal hetzelfde resultaa
 ## Oefeningen:
 ### Oefening 05: Super Slider
 #### Doel:
-Een gouwe ouwe vandaag: een slider.
+Een afbeelding slider.
+- Het is de bedoeling dat we een slider programmeren die heel makkelijk kan herbruikt worden op 
+verschillende plaatsen (plugin).
+- We verwachten van onze gebruiker dat hij de volgende structuur hanteert in zijn html:  
+  ```html
+  <section>
+      <img src="path/img.jpg" alt="">
+      <img src="path/img.jpg" alt="">
+      <img src="path/img.jpg" alt="">
+      <img src="path/img.jpg" alt="">
+      <img src="path/img.jpg" alt="">
+  </section>
+  ```
+- De eerste stap die ons script moet doen is bovenstaande HTML aanpassen tot:
+  ```html
+  <section class="ss-container">
+    <div class="ss-arrow ss-left"><i class="fas fa-angle-left fa-5x"></i></div>
+    <div class="ss-arrow ss-right"><i class="fas fa-angle-right fa-5x"></i></div>
+    <div class="ss-bullets">
+      <div class="ss-bullet active" data-index="0"></div>
+      <div class="ss-bullet" data-index="1"></div>
+      <div class="ss-bullet" data-index="2"></div>
+      <div class="ss-bullet" data-index="3"></div>
+      <div class="ss-bullet" data-index="4></div>
+    </div>
+    <div class="ss-slide" data-index="0">
+      <img src="path/img.jpg" alt="">
+      <img src="path/img.jpg" alt="">
+      <img src="path/img.jpg" alt="">
+      <img src="path/img.jpg" alt="">
+      <img src="path/img.jpg" alt="">
+    </div>
+  </section>
+  ```
+- Er kan zowel genavigeerd worden door op de pijlen (`.ss-arrow`) te klikken, 
+als op een `ss-bullet` te klikken.
 
 
 
